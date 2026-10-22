@@ -206,6 +206,9 @@ header nav a.btn{color:var(--navy);padding:11px 20px}
 .hero-card h2{font-size:1.25rem;margin-bottom:.5em}
 .ba{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
 .ph{aspect-ratio:4/3;border-radius:10px;background:repeating-linear-gradient(45deg,#eef3f8,#eef3f8 10px,#e4ecf4 10px,#e4ecf4 20px);display:flex;align-items:flex-end;justify-content:center;padding:8px;font:700 .72rem "Montserrat",sans-serif;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.shot{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:2/1;background:#eef3f8}
+.shot img{width:100%;height:100%;object-fit:cover;display:block}
+.shot span{position:absolute;left:8px;top:8px;background:rgba(14,42,71,.85);color:#fff;font:700 .68rem "Montserrat",sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:20px}
 .hero-card p{font-size:.9rem;color:var(--muted);margin:0}
 @media(max-width:900px){.hero .wrap{grid-template-columns:1fr}}
 
@@ -254,9 +257,9 @@ td.hi{background:var(--aqua);font-weight:600}
 .stat span{font-size:.9rem;color:var(--muted)}
 
 /* gallery */
-.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:28px}
-@media(max-width:1000px){.gallery{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:560px){.gallery{grid-template-columns:1fr}}
+.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:28px}
+@media(max-width:760px){.gallery{grid-template-columns:1fr}}
+@media(max-width:480px){.case .ba{grid-template-columns:1fr}}
 .case{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:14px}
 .case .ba{margin:0 0 10px}
 .case p{font-size:.9rem;color:var(--muted);margin:0}
@@ -336,11 +339,7 @@ footer ul{list-style:none}
     </div>
     <aside class="hero-card" aria-label="Esempio di risultato">
       <h2>Vedi il risultato prima di iniziare</h2>
-      <div class="ba">
-        <div class="ph">Prima</div>
-        <div class="ph">Dopo</div>
-      </div>
-      <!-- Sostituire i riquadri con foto reali di un caso (con consenso del paziente). alt consigliato: "Composite bonding prima e dopo – diastema chiuso, Iuorio Odontoiatri Aversa" -->
+      <div class="ba"><div class="shot"><img src="img/casi/caso-09-prima.webp" alt="Prima del composite bonding: chiusura di ampi diastemi e ricostruzione di un incisivo laterale piccolo" width="470" height="235"><span>Prima</span></div><div class="shot"><img src="img/casi/caso-09-dopo.webp" alt="Dopo il composite bonding con Injection Technique, Studio Iuorio Odontoiatri Aversa" width="470" height="235"><span>Dopo</span></div></div>
       <p>Con il mock-up provi in bocca la forma dei nuovi denti prima del trattamento definitivo.</p>
     </aside>
   </div>
@@ -464,18 +463,18 @@ footer ul{list-style:none}
   <div class="wrap">
     <span class="eyebrow">Prima e dopo</span>
     <h2>Casi di composite bonding</h2>
-    <p class="lead">Alcuni risultati ottenuti con la Injection Technique nel nostro studio di Aversa.</p>
+    <p class="lead">Risultati reali ottenuti con la Injection Technique nel nostro studio di Aversa. Foto pubblicate con il consenso dei pazienti.</p>
     <div class="gallery">
-      <figure class="case"><div class="ba"><div class="ph">Prima</div><div class="ph">Dopo</div></div><figcaption><p>Chiusura di diastema tra gli incisivi centrali.</p></figcaption></figure>
-      <figure class="case"><div class="ba"><div class="ph">Prima</div><div class="ph">Dopo</div></div><figcaption><p>Ricostruzione di incisivi scheggiati.</p></figcaption></figure>
-      <figure class="case"><div class="ba"><div class="ph">Prima</div><div class="ph">Dopo</div></div><figcaption><p>Riproporzione di denti piccoli dopo l'ortodonzia.</p></figcaption></figure>
-      <figure class="case"><div class="ba"><div class="ph">Prima</div><div class="ph">Dopo</div></div><figcaption><p>Ripristino di denti anteriori consumati dall'usura.</p></figcaption></figure>
-      <figure class="case"><div class="ba"><div class="ph">Prima</div><div class="ph">Dopo</div></div><figcaption><p>Chiusura di spazi multipli tra i denti superiori.</p></figcaption></figure>
-      <figure class="case"><div class="ba"><div class="ph">Prima</div><div class="ph">Dopo</div></div><figcaption><p>Allungamento di incisivi corti.</p></figcaption></figure>
-      <figure class="case"><div class="ba"><div class="ph">Prima</div><div class="ph">Dopo</div></div><figcaption><p>Correzione di un incisivo laterale piccolo e appuntito.</p></figcaption></figure>
-      <figure class="case"><div class="ba"><div class="ph">Prima</div><div class="ph">Dopo</div></div><figcaption><p>Mascheramento di macchie bianche sugli incisivi.</p></figcaption></figure>
-      <figure class="case"><div class="ba"><div class="ph">Prima</div><div class="ph">Dopo</div></div><figcaption><p>Armonizzazione del sorriso su sei denti anteriori.</p></figcaption></figure>
-      <figure class="case"><div class="ba"><div class="ph">Prima</div><div class="ph">Dopo</div></div><figcaption><p>Ricostruzione di un incisivo fratturato dopo un trauma.</p></figcaption></figure>
+      <figure class="case"><div class="ba"><div class="shot"><img src="img/casi/caso-01-prima.webp" alt="Prima del composite bonding: chiusura del diastema tra gli incisivi centrali e riproporzione dei laterali" width="470" height="235" loading="lazy"><span>Prima</span></div><div class="shot"><img src="img/casi/caso-01-dopo.webp" alt="Dopo il composite bonding con Injection Technique, Studio Iuorio Odontoiatri Aversa" width="470" height="235" loading="lazy"><span>Dopo</span></div></div><figcaption><p>Chiusura del diastema tra gli incisivi centrali e riproporzione dei laterali.</p></figcaption></figure>
+      <figure class="case"><div class="ba"><div class="shot"><img src="img/casi/caso-02-prima.webp" alt="Prima del composite bonding: armonizzazione di forma e lunghezza degli incisivi superiori irregolari" width="470" height="235" loading="lazy"><span>Prima</span></div><div class="shot"><img src="img/casi/caso-02-dopo.webp" alt="Dopo il composite bonding con Injection Technique, Studio Iuorio Odontoiatri Aversa" width="470" height="235" loading="lazy"><span>Dopo</span></div></div><figcaption><p>Armonizzazione di forma e lunghezza degli incisivi superiori irregolari.</p></figcaption></figure>
+      <figure class="case"><div class="ba"><div class="shot"><img src="img/casi/caso-03-prima.webp" alt="Prima del composite bonding: chiusura del diastema e ricostruzione dei bordi consumati" width="470" height="235" loading="lazy"><span>Prima</span></div><div class="shot"><img src="img/casi/caso-03-dopo.webp" alt="Dopo il composite bonding con Injection Technique, Studio Iuorio Odontoiatri Aversa" width="470" height="235" loading="lazy"><span>Dopo</span></div></div><figcaption><p>Chiusura del diastema e ricostruzione dei bordi consumati.</p></figcaption></figure>
+      <figure class="case"><div class="ba"><div class="shot"><img src="img/casi/caso-04-prima.webp" alt="Prima del composite bonding: correzione di discromie e allungamento degli incisivi superiori" width="470" height="235" loading="lazy"><span>Prima</span></div><div class="shot"><img src="img/casi/caso-04-dopo.webp" alt="Dopo il composite bonding con Injection Technique, Studio Iuorio Odontoiatri Aversa" width="470" height="235" loading="lazy"><span>Dopo</span></div></div><figcaption><p>Correzione di discromie e allungamento degli incisivi superiori.</p></figcaption></figure>
+      <figure class="case"><div class="ba"><div class="shot"><img src="img/casi/caso-05-prima.webp" alt="Prima del composite bonding: chiusura di spazi multipli tra i denti anteriori superiori" width="470" height="235" loading="lazy"><span>Prima</span></div><div class="shot"><img src="img/casi/caso-05-dopo.webp" alt="Dopo il composite bonding con Injection Technique, Studio Iuorio Odontoiatri Aversa" width="470" height="235" loading="lazy"><span>Dopo</span></div></div><figcaption><p>Chiusura di spazi multipli tra i denti anteriori superiori.</p></figcaption></figure>
+      <figure class="case"><div class="ba"><div class="shot"><img src="img/casi/caso-06-prima.webp" alt="Prima del composite bonding: chiusura del diastema centrale e riproporzione degli incisivi" width="470" height="235" loading="lazy"><span>Prima</span></div><div class="shot"><img src="img/casi/caso-06-dopo.webp" alt="Dopo il composite bonding con Injection Technique, Studio Iuorio Odontoiatri Aversa" width="470" height="235" loading="lazy"><span>Dopo</span></div></div><figcaption><p>Chiusura del diastema centrale e riproporzione degli incisivi.</p></figcaption></figure>
+      <figure class="case"><div class="ba"><div class="shot"><img src="img/casi/caso-07-prima.webp" alt="Prima del composite bonding: ricostruzione di incisivi scheggiati e con vecchie otturazioni" width="470" height="235" loading="lazy"><span>Prima</span></div><div class="shot"><img src="img/casi/caso-07-dopo.webp" alt="Dopo il composite bonding con Injection Technique, Studio Iuorio Odontoiatri Aversa" width="470" height="235" loading="lazy"><span>Dopo</span></div></div><figcaption><p>Ricostruzione di incisivi scheggiati e con vecchie otturazioni.</p></figcaption></figure>
+      <figure class="case"><div class="ba"><div class="shot"><img src="img/casi/caso-08-prima.webp" alt="Prima del composite bonding: chiusura degli spazi tra incisivi centrali e laterali" width="470" height="235" loading="lazy"><span>Prima</span></div><div class="shot"><img src="img/casi/caso-08-dopo.webp" alt="Dopo il composite bonding con Injection Technique, Studio Iuorio Odontoiatri Aversa" width="470" height="235" loading="lazy"><span>Dopo</span></div></div><figcaption><p>Chiusura degli spazi tra incisivi centrali e laterali.</p></figcaption></figure>
+      <figure class="case"><div class="ba"><div class="shot"><img src="img/casi/caso-09-prima.webp" alt="Prima del composite bonding: chiusura di ampi diastemi e ricostruzione di un incisivo laterale piccolo" width="470" height="235" loading="lazy"><span>Prima</span></div><div class="shot"><img src="img/casi/caso-09-dopo.webp" alt="Dopo il composite bonding con Injection Technique, Studio Iuorio Odontoiatri Aversa" width="470" height="235" loading="lazy"><span>Dopo</span></div></div><figcaption><p>Chiusura di ampi diastemi e ricostruzione di un incisivo laterale piccolo.</p></figcaption></figure>
+      <figure class="case"><div class="ba"><div class="shot"><img src="img/casi/caso-10-prima.webp" alt="Prima del composite bonding: mascheramento di un incisivo scurito e uniformità del colore" width="470" height="235" loading="lazy"><span>Prima</span></div><div class="shot"><img src="img/casi/caso-10-dopo.webp" alt="Dopo il composite bonding con Injection Technique, Studio Iuorio Odontoiatri Aversa" width="470" height="235" loading="lazy"><span>Dopo</span></div></div><figcaption><p>Mascheramento di un incisivo scurito e uniformità del colore.</p></figcaption></figure>
     </div>
   </div>
 </section>
