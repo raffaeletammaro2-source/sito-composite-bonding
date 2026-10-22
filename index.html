@@ -281,6 +281,11 @@ form{background:#fff;border-radius:20px;padding:28px;color:var(--ink);box-shadow
 label{display:block;font-weight:700;font-size:.85rem;margin:12px 0 6px;color:var(--navy)}
 input,select,textarea{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:10px;font:inherit;font-size:.95rem;background:var(--soft)}
 textarea{min-height:90px;resize:vertical}
+.upload input[type=file]{background:#fff;border:2px dashed var(--line);padding:16px;cursor:pointer}
+.upload input[type=file]:hover{border-color:var(--teal)}
+.upload input[type=file]::file-selector-button{font:700 .8rem "Montserrat",sans-serif;text-transform:uppercase;letter-spacing:.04em;background:var(--teal);color:#fff;border:0;border-radius:30px;padding:9px 16px;margin-right:12px;cursor:pointer}
+.help{font-size:.8rem;color:var(--muted);margin:6px 0 0}
+.help.err{color:#b42318;font-weight:600}
 .privacy{display:flex;gap:10px;align-items:flex-start;font-size:.8rem;color:var(--muted);margin-top:14px}
 .privacy input{width:auto;margin-top:3px}
 form .btn{width:100%;justify-content:center;margin-top:18px}
@@ -571,7 +576,7 @@ footer ul{list-style:none}
     </div>
 
     <!-- Modulo gestito da Netlify Forms: le richieste arrivano in Netlify > Forms e via email (da attivare nelle notifiche). -->
-    <form id="leadForm" name="prenotazione" method="POST" action="/grazie.html" data-netlify="true" netlify-honeypot="sito-web" aria-label="Richiesta visita composite bonding">
+    <form id="leadForm" name="prenotazione" method="POST" action="/grazie.html" enctype="multipart/form-data" data-netlify="true" netlify-honeypot="sito-web" aria-label="Richiesta visita composite bonding">
       <input type="hidden" name="form-name" value="prenotazione">
       <p hidden><label>Non compilare: <input name="sito-web"></label></p>
       <h3 style="margin:0">Richiedi la tua visita</h3>
@@ -583,7 +588,13 @@ footer ul{list-style:none}
       <select id="sede" name="sede"><option>Aversa</option><option>Salerno</option></select>
       <label for="msg">Cosa vorresti migliorare?</label>
       <textarea id="msg" name="msg" placeholder="Es. spazio tra i denti, dente scheggiato, colore…"></textarea>
-      <label class="privacy"><input type="checkbox" name="privacy" value="accettata" required> <span>Ho letto la <a href="https://www.iubenda.com/privacy-policy/79728428">privacy policy</a> e acconsento al trattamento dei dati per essere ricontattato.</span></label>
+      <label for="foto">Carica la foto del tuo sorriso frontale e ben visibile</label>
+      <div class="upload">
+        <input id="foto" name="foto" type="file" accept="image/jpeg,image/png,image/heic,image/heif,image/webp" aria-describedby="foto-help">
+        <p id="foto-help" class="help">Facoltativa. Sorridi guardando la fotocamera, con buona luce e i denti ben visibili. JPG, PNG o HEIC, max 8 MB.</p>
+        <p id="foto-err" class="help err" role="alert" hidden></p>
+      </div>
+      <label class="privacy"><input type="checkbox" name="privacy" value="accettata" required> <span>Ho letto la <a href="https://www.iubenda.com/privacy-policy/79728428">privacy policy</a> e acconsento al trattamento dei dati, compresa l'eventuale foto, per essere ricontattato e valutare il mio caso.</span></label>
       <button class="btn btn-primary" type="submit">Invia richiesta</button>
     </form>
   </div>
@@ -631,5 +642,18 @@ footer ul{list-style:none}
   <a class="btn btn-wa" href="https://api.whatsapp.com/send?phone=393387776558&text=Buongiorno%2C%20vorrei%20informazioni%20sul%20composite%20bonding">WhatsApp</a>
 </div>
 
+<script>
+(function(){
+  var f=document.getElementById('foto'), e=document.getElementById('foto-err');
+  if(!f) return;
+  f.addEventListener('change',function(){
+    var file=f.files[0]; e.hidden=true; f.setCustomValidity('');
+    if(file && file.size>8*1024*1024){
+      e.textContent='La foto supera 8 MB: scegline una più leggera.'; e.hidden=false;
+      f.setCustomValidity('File troppo grande'); f.value='';
+    }
+  });
+})();
+</script>
 </body>
 </html>
