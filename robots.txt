@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+# Sitemap: https://www.DOMINIO.it/sitemap.xml  (da attivare quando il dominio è collegato)
