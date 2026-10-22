@@ -203,6 +203,18 @@ header nav a.btn{color:var(--navy);padding:11px 20px}
 .cta-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 .trust{margin-top:22px;font-size:.9rem;color:#cfe0ee;display:flex;align-items:center;gap:10px}
 .stars{color:var(--gold);letter-spacing:2px;font-size:1.05rem}
+.hero-side{display:grid;gap:20px;justify-items:center}
+.hero-side .hero-card{width:100%}
+.hero-video{position:relative;width:100%;max-width:300px;margin:0;border-radius:20px;overflow:hidden;background:#0b2036;box-shadow:0 20px 50px rgba(0,0,0,.3);aspect-ratio:9/16}
+.hero-video video{width:100%;height:100%;object-fit:cover;display:block;cursor:pointer}
+.hero-video figcaption{position:absolute;left:0;right:0;bottom:0;padding:34px 14px 12px;font:600 .78rem "Open Sans",sans-serif;color:#fff;background:linear-gradient(transparent,rgba(8,27,46,.85));pointer-events:none}
+.vplay{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:72px;height:72px;border-radius:50%;border:0;background:var(--gold);color:var(--navy);display:grid;place-items:center;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.35);transition:transform .15s}
+.vplay:hover{transform:translate(-50%,-50%) scale(1.06)}
+.vplay svg{margin-left:4px}
+.hero-video.playing .vplay{opacity:0;pointer-events:none}
+.vsound{position:absolute;top:12px;right:12px;display:none;align-items:center;gap:6px;border:0;border-radius:30px;padding:7px 12px;background:rgba(8,27,46,.75);color:#fff;font:700 .72rem "Montserrat",sans-serif;text-transform:uppercase;letter-spacing:.04em;cursor:pointer}
+.hero-video.playing.muted .vsound{display:inline-flex}
+@media(max-width:900px){.hero-side{margin-top:8px}}
 .hero-card{background:#fff;color:var(--ink);border-radius:20px;padding:28px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
 .hero-card h2{font-size:1.25rem;margin-bottom:.5em}
 .ba{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
@@ -343,11 +355,26 @@ footer ul{list-style:none}
       </div>
       <p class="trust"><span class="stars" aria-hidden="true">★★★★★</span> Valutazione 5.0 su Google · oltre 300 recensioni</p>
     </div>
+    <div class="hero-side">
+    <figure class="hero-video" id="heroVideo">
+      <video id="docVideo" src="video/injection-technique-dott-iuorio.mp4" poster="video/injection-technique-poster.webp"
+             muted loop playsinline preload="metadata" width="540" height="960"
+             aria-label="Il Dott. Giovanni Iuorio spiega la Injection Technique con casi prima e dopo"></video>
+      <button class="vplay" type="button" aria-label="Riproduci il video">
+        <svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5z"/></svg>
+      </button>
+      <button class="vsound" type="button" aria-label="Attiva l'audio">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M4 9v6h4l5 4V5L8 9H4zm12.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4z"/></svg>
+        <span>Attiva l'audio</span>
+      </button>
+      <figcaption>Il Dott. Giovanni Iuorio spiega la Injection Technique</figcaption>
+    </figure>
     <aside class="hero-card" aria-label="Esempio di risultato">
       <h2>Vedi il risultato prima di iniziare</h2>
       <div class="ba"><div class="shot"><img src="img/casi/caso-09-prima.webp" alt="Prima del composite bonding: chiusura di ampi diastemi e ricostruzione di un incisivo laterale piccolo" width="470" height="235"><span>Prima</span></div><div class="shot"><img src="img/casi/caso-09-dopo.webp" alt="Dopo il composite bonding con Injection Technique, Studio Iuorio Odontoiatri Aversa" width="470" height="235"><span>Dopo</span></div></div>
       <p>Con il mock-up provi in bocca la forma dei nuovi denti prima del trattamento definitivo.</p>
     </aside>
+    </div>
   </div>
 </section>
 
@@ -654,6 +681,25 @@ footer ul{list-style:none}
       f.setCustomValidity('File troppo grande'); f.value='';
     }
   });
+})();
+</script>
+<script>
+(function(){
+  var box=document.getElementById('heroVideo'); if(!box) return;
+  var v=document.getElementById('docVideo');
+  var play=box.querySelector('.vplay'), snd=box.querySelector('.vsound');
+  function sync(){ box.classList.toggle('playing',!v.paused); box.classList.toggle('muted',v.muted); }
+  ['play','pause','volumechange'].forEach(function(e){ v.addEventListener(e,sync); });
+  // Avvio automatico (senza audio, come richiesto dai browser). Saltato se l'utente preferisce meno animazioni o risparmio dati.
+  var calm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var saveData = navigator.connection && navigator.connection.saveData;
+  if(!calm && !saveData){ v.preload='auto'; var p=v.play(); if(p&&p.catch) p.catch(function(){ sync(); }); }
+  // Play dall'anteprima: parte dall'inizio con l'audio
+  play.addEventListener('click',function(){ v.muted=false; v.loop=false; if(v.currentTime>0.5 && v.dataset.started!=='1'){ v.currentTime=0; } v.dataset.started='1'; v.play(); });
+  snd.addEventListener('click',function(e){ e.stopPropagation(); v.muted=false; v.loop=false; v.currentTime=0; v.dataset.started='1'; v.play(); });
+  v.addEventListener('click',function(){ if(v.paused){ v.play(); } else { v.pause(); } });
+  v.addEventListener('ended',function(){ v.currentTime=0; sync(); });
+  sync();
 })();
 </script>
 </body>
