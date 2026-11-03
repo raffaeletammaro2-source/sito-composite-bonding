@@ -10,5 +10,9 @@ Sito statico pubblicato con Netlify (pubblicazione automatica a ogni modifica su
 
 ## Collegamento al CRM
 
-`netlify/functions/submission-created.mjs` invia ogni richiesta del modulo "prenotazione" al webhook di GoHighLevel.
-L'indirizzo del webhook va impostato su Netlify nella variabile d'ambiente `GHL_WEBHOOK_URL` (non nel codice: il repository è pubblico).
+`netlify/functions/lead-to-crm.mjs` riceve la notifica "Outgoing webhook" di Netlify Forms (modulo "prenotazione")
+e invia ogni richiesta al webhook di GoHighLevel. I campi inviati sono definiti in `netlify/lib/lead.mjs`.
+
+Variabili d'ambiente su Netlify (non nel codice: il repository è pubblico):
+- `GHL_WEBHOOK_URL`: indirizzo del webhook GoHighLevel
+- `LEAD_WEBHOOK_SECRET`: lo stesso testo impostato come "JWS secret token" nella notifica di Netlify Forms

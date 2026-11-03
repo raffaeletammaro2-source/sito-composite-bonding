@@ -1,8 +1,4 @@
-// Invia ogni richiesta del modulo "prenotazione" al CRM (GoHighLevel / LeadConnector).
-// Netlify esegue questa funzione da sola dopo ogni invio valido del modulo (spam già filtrato).
-// L'indirizzo del webhook NON sta nel codice: va impostato su Netlify nella variabile GHL_WEBHOOK_URL.
-
-const FORM_NAME = "prenotazione";
+// Trasforma un invio del modulo "prenotazione" nei campi inviati al CRM GoHighLevel.
 
 export function normalizePhone(raw) {
   if (!raw) return "";
@@ -50,40 +46,3 @@ export function buildLead(payload) {
     event_id: d.event_id || "",
   };
 }
-
-export const handler = async (event) => {
-  let payload;
-  try {
-    payload = JSON.parse(event.body).payload;
-  } catch (e) {
-    console.error("Corpo della richiesta non valido", e);
-    return { statusCode: 400, body: "bad request" };
-  }
-  if (!payload || payload.form_name !== FORM_NAME) {
-    return { statusCode: 200, body: "ignorato" };
-  }
-
-  const url = process.env.GHL_WEBHOOK_URL;
-  if (!url) {
-    console.error("GHL_WEBHOOK_URL non impostata: richiesta non inviata al CRM", payload.id);
-    return { statusCode: 200, body: "webhook non configurato" };
-  }
-
-  const lead = buildLead(payload);
-  try {
-    const res = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(lead),
-    });
-    if (!res.ok) {
-      console.error("Il CRM ha risposto con errore", res.status, await res.text());
-      return { statusCode: 502, body: "errore CRM" };
-    }
-    console.log("Richiesta inviata al CRM", payload.id);
-    return { statusCode: 200, body: "ok" };
-  } catch (e) {
-    console.error("Invio al CRM non riuscito", e);
-    return { statusCode: 502, body: "errore rete" };
-  }
-};
