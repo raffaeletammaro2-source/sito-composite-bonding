@@ -47,6 +47,7 @@ export function buildLead(payload) {
     pagina: d.referrer || payload.site_url || "",
     data_invio: payload.created_at || new Date().toISOString(),
     netlify_submission_id: payload.id || "",
+    event_id: d.event_id || "",
   };
 }
 
