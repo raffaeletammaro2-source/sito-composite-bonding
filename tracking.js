@@ -45,7 +45,13 @@
       if (hidden) hidden.value = id;
       var sede = form.sede ? form.sede.value : '';
       var foto = form.foto && form.foto.files && form.foto.files.length ? 'si' : 'no';
-      store.set('lead_pending', JSON.stringify({ event_id: id, sede: sede, foto: foto }));
+      var parts = (form.nome ? form.nome.value : '').trim().split(/\s+/).filter(Boolean);
+      var tel = (form.tel ? form.tel.value : '').replace(/[^\d+]/g, '');
+      if (tel.indexOf('00') === 0) tel = '+' + tel.slice(2);
+      if (tel && tel.charAt(0) !== '+') tel = (tel.indexOf('39') === 0 && tel.length >= 11 ? '+' : '+39') + tel;
+      var email = form.email ? form.email.value.trim().toLowerCase() : '';
+      store.set('lead_pending', JSON.stringify({ event_id: id, sede: sede, foto: foto,
+        user: { first_name: (parts[0] || '').toLowerCase(), last_name: parts.slice(1).join(' ').toLowerCase(), phone_number: tel, email: email } }));
     });
   }
 
@@ -56,7 +62,10 @@
       store.del('lead_pending');
       var d = {};
       try { d = JSON.parse(raw); } catch (e) {}
-      push({ event: 'generate_lead', event_id: d.event_id || uid(), sede: d.sede || '', foto_caricata: d.foto || 'no', form_name: 'prenotazione' });
+      var u = d.user || {};
+      // Dati personali solo per l'Advanced Matching di Meta (cifrati da Meta prima dell'invio). NON usarli nei tag GA4.
+      push({ event: 'generate_lead', event_id: d.event_id || uid(), sede: d.sede || '', foto_caricata: d.foto || 'no', form_name: 'prenotazione',
+        user_data: { phone_number: u.phone_number || '', email: u.email || '', address: { first_name: u.first_name || '', last_name: u.last_name || '', country: 'IT' } } });
     }
   }
 
